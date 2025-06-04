@@ -1,5 +1,5 @@
 let numberOfSeries = +prompt('Nechta serial ko’rdingiz?', '')
-console.log(`Siz ${numberOfSeries} ta serial ko’rdingiz.`)
+// console.log(`Siz ${numberOfSeries} ta serial ko’rdingiz.`)
 
 const seriesDB = {
 	count: numberOfSeries,
@@ -9,9 +9,28 @@ const seriesDB = {
 	privat: false,
 }
 
-let seriesName = prompt('Oxirgi ko’rgan serialingiz?', '')
-// seriesDB.series[seriesName] = seriesName
-let seriesRating = prompt('Uning reytingi necha?', '')
-seriesDB.series[seriesName] = seriesRating
+for (let i = 0; i < 2; i++) {
+	const seriesName = prompt('Oxirgi ko’rgan serialingiz?', '')
+	const seriesRating = prompt('Uning reytingi necha?', '')
+	if (
+		seriesName !== null &&
+		seriesRating !== null &&
+		seriesName != '' &&
+		seriesRating != ''
+	) {
+		seriesDB.series[seriesName] = seriesRating
+
+		console.log('Done')
+	} else {
+		i--
+	}
+}
+if (seriesDB.count < 5) {
+	console.log('Kam serial ko’ripsiz')
+} else if (seriesDB.count > 5 && seriesDB.count < 10) {
+	console.log('Siz classik tamoshabin ekansiz')
+} else if (seriesDB.count > 10) {
+	console.log('Siz serialchi zvezda ekansiz')
+}
 
 console.log(seriesDB)
