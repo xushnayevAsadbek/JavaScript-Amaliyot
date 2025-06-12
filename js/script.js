@@ -1,6 +1,6 @@
-let numberOfSeries = +prompt('Nechta serial ko’rdingiz?', '')
+let numberOfSeries
 // console.log(`Siz ${numberOfSeries} ta serial ko’rdingiz.`)
-
+startApp()
 const seriesDB = {
 	count: numberOfSeries,
 	series: {},
@@ -8,29 +8,62 @@ const seriesDB = {
 	genres: [],
 	privat: false,
 }
+setFavoriteSeries()
+detectingLevel()
+writeGenres()
+showDB(seriesDB.privat)
 
-for (let i = 0; i < 2; i++) {
-	const seriesName = prompt('Oxirgi ko’rgan serialingiz?', '')
-	const seriesRating = prompt('Uning reytingi necha?', '')
-	if (
-		seriesName !== null &&
-		seriesRating !== null &&
-		seriesName != '' &&
-		seriesRating != ''
+function startApp() {
+	numberOfSeries = +prompt('Nechta serial ko’rdingiz?', '')
+	while (
+		numberOfSeries == '' ||
+		numberOfSeries == null ||
+		isNaN(numberOfSeries)
 	) {
-		seriesDB.series[seriesName] = seriesRating
-
-		console.log('Done')
-	} else {
-		i--
+		numberOfSeries = +prompt('Nechta serial ko’rdingiz?', '')
 	}
 }
-if (seriesDB.count < 5) {
-	console.log('Kam serial ko’ripsiz')
-} else if (seriesDB.count > 5 && seriesDB.count < 10) {
-	console.log('Siz classik tamoshabin ekansiz')
-} else if (seriesDB.count > 10) {
-	console.log('Siz serialchi zvezda ekansiz')
+
+function setFavoriteSeries() {
+	for (let i = 0; i < 2; i++) {
+		const seriesName = prompt('Oxirgi ko’rgan serialingiz?', '')
+		const seriesRating = prompt('Uning reytingi necha?', '')
+		if (
+			seriesName !== null &&
+			seriesRating !== null &&
+			seriesName != '' &&
+			seriesRating != ''
+		) {
+			seriesDB.series[seriesName] = seriesRating
+
+			console.log('Done')
+		} else {
+			i--
+		}
+	}
 }
 
-console.log(seriesDB)
+function detectingLevel() {
+	if (seriesDB.count < 5) {
+		console.log('Kam serial ko’ripsiz')
+	} else if (seriesDB.count > 5 && seriesDB.count < 10) {
+		console.log('Siz classik tamoshabin ekansiz')
+	} else if (seriesDB.count > 10) {
+		console.log('Siz serialchi zvezda ekansiz')
+	}
+}
+function writeGenres() {
+	for (let i = 0; i < 3; i++) {
+		let genre = prompt(`Sizning sevimli janringiz? ${i + 1}`, '')
+		seriesDB.genres[i] = genre
+	}
+}
+function showDB(isPrivate) {
+	if (!isPrivate) {
+		console.log(seriesDB)
+	} else {
+		console.log('Ma’lumotlar maxfiy')
+	}
+}
+
+// console.log(seriesDB)
